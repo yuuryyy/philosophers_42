@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:20:42 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/17 01:28:07 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/19 02:09:11 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-#include <string.h>
+# include <string.h>
+# include <sys/time.h>
+
+typedef struct s_philo
+{
+	int	
+};
+
+
 typedef struct s_data
 {
 	int	number_of_philosophers;

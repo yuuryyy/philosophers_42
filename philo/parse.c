@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:26:39 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/17 00:17:36 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/19 00:59:08 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 void	ft_perror(char *str)
 {
-	printf("\033[31mError message : \033[0m%s\n", str);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	write(2, "\033[31mError message : \033[0m", 26);
+	write(2, str, i);
+	write(2, "\n", 1);
 }
 
 int	check_chars(char *argv)
