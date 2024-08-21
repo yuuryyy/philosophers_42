@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 23:17:23 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/17 01:28:27 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/21 04:00:18 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	main(int ac, char **argv)
 	memset(&data, 0, sizeof(t_data));
 	if (is_number(argv, ac, &data))
 		return (1);
-	printf("%d ",data.time_to_die);
+	creat_threads(&data);
+	// printf("%d ",data.time_to_die);
 }

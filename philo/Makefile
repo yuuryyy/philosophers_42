@@ -6,7 +6,7 @@
 #    By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 22:50:23 by ychagri           #+#    #+#              #
-#    Updated: 2024/08/17 01:44:26 by ychagri          ###   ########.fr        #
+#    Updated: 2024/08/21 04:00:36 by ychagri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	:=	philo
 
 CFLAGS	:=	cc -Wall -Wextra -Werror -fsanitize=address
 
-SRCS	:=	philo.c parse.c
+SRCS	:=	philo.c parse.c init.c \
 
 OBJS	:=	$(SRCS:.c=.o)
 

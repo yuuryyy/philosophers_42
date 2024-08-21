@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:26:39 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/19 00:59:08 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/21 03:25:39 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	check_chars(char *argv)
 	return (0);
 }
 
-int	ft_atoi(char *str)
+size_t	ft_atoi(char *str)
 {
-	long long	i;
+	size_t	i;
 	int			sign;
-	long long	res;
-	long long	temp;
+	size_t	res;
+	size_t	temp;
 
 	i = 0;
 	sign = 1;
@@ -88,17 +88,17 @@ int	is_number(char **argv, int ac, t_data*data)
 		i++;
 	}
 	data->number_of_philosophers = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
+	data->timing.time_to_die = ft_atoi(argv[2]);
+	data->timing.time_to_eat = ft_atoi(argv[3]);
+	data->timing.time_to_sleep = ft_atoi(argv[4]);
 	if (ac == 6)
-		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		data->timing.number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
-		data->number_of_times_each_philosopher_must_eat = 0;
+		data->timing.number_of_times_each_philosopher_must_eat = 0;
 	if (data->number_of_philosophers <= 0 || data->number_of_philosophers > 200
-		|| data->time_to_die < 60 || data->time_to_eat < 60
-		|| data->time_to_sleep < 60
-		|| data->number_of_times_each_philosopher_must_eat < 0)
+		|| data->timing.time_to_die < 60 || data->timing.time_to_eat < 60
+		|| data->timing.time_to_sleep < 60
+		|| data->timing.number_of_times_each_philosopher_must_eat < 0)
 		return (ft_perror("invalid number of philos/timer !!"), 1);
 	return (0);
 }
