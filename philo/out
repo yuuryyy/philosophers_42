@@ -1,0 +1,10 @@
+Makefile
+init.c
+init.o
+out
+parse.c
+parse.o
+philo
+philo.c
+philo.h
+philo.o
