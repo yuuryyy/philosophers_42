@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:20:42 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/26 04:27:39 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/26 05:22:35 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,19 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+# define FORK "has taken a fork"
+# define EATING "is eating"
+# define SLEEPING "is sleeping"
+# define THINKING "is thinking"
 
-# define fork "has taken a fork"
-# define eating "is eating"
-# define sleeping "is sleeping"
-# define thinking "is thinking"
-
-#define RESET "\033[0m"
-#define BLACK "\033[30m"
-#define RED "\033[31m"
-#define GREEN "\033[32m"
-#define YELLOW "\033[33m"
-#define MAGENTA "\033[35m"
-#define CYAN "\033[36m"
-#define WHITE "\033[37m"
+# define RESET "\033[0m"
+# define BLACK "\033[30m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define MAGENTA "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
 
 typedef struct s_interval
 {	
@@ -79,6 +78,9 @@ void	fork_lock(t_philo *philo);
 void	fork_unlock(t_philo *philo);
 void	meals_lock(t_philo *philo);
 long long timeofday(long long start);
-
+void	ft_usleep(long long time);
+void	destroy_mutexes(t_data *data);
+void	full_msg(t_data *data, int i);
+void	death_msg(t_data *data, int i)
 
 #endif
