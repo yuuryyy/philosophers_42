@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:20:42 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/24 06:49:44 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/26 04:27:39 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@
 typedef struct s_interval
 {	
 	int			number_of_times_each_philosopher_must_eat;
-	int			time_to_sleep;
+	long long			time_to_sleep;
 	long long			time_to_die;
-	int			time_to_eat;
+	long long		time_to_eat;
 }			  t_intervals;
 
 typedef struct 	s_philo
@@ -63,13 +63,22 @@ typedef struct s_data
 	int				number_of_philosophers;
 	pthread_mutex_t	write;
 	pthread_mutex_t	are_full;
+	pthread_mutex_t	dead_lock;
 	t_philo			*philos;
 	t_intervals		timing;
 }	t_data;
 
 
 int		is_number(char **argv, int ac, t_data *data);
+int		creat_threads(t_data *data);
+
 void	ft_perror(char *str);
-int	creat_threads(t_data *data);
+int		init_mutexes(t_data *data);
+void	write_lock(t_philo *philo, char *msg);
+void	fork_lock(t_philo *philo);
+void	fork_unlock(t_philo *philo);
+void	meals_lock(t_philo *philo);
+long long timeofday(long long start);
+
 
 #endif

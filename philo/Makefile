@@ -6,16 +6,18 @@
 #    By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 22:50:23 by ychagri           #+#    #+#              #
-#    Updated: 2024/08/24 03:57:57 by ychagri          ###   ########.fr        #
+#    Updated: 2024/08/26 04:22:04 by ychagri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	philo
 
-CFLAGS	:=	cc -Wall -Wextra -Werror 
+CFLAGS	:=	 cc -g -Wall -Wextra -Werror 
 #-fsanitize=thread
+#-fsanitize=address
 
-SRCS	:=	philo.c parse.c init.c \
+
+SRCS	:=	philo.c parse.c init.c init_locks.c \
 
 OBJS	:=	$(SRCS:.c=.o)
 
