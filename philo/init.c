@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:21:31 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/26 04:37:11 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/26 04:53:52 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	monitor_threads(t_data *data)
 		{
 			pthread_mutex_lock(&data->write);
 			printf(MAGENTA"%llu ms %d died", timeofday(data->start_time) , data->philos[i].number);
-			return (1);
+			exit (0);
 		}
 		pthread_mutex_unlock(&data->dead_lock);
 		if (data->timing.number_of_times_each_philosopher_must_eat &&( data->full_philos == data->number_of_philosophers))
@@ -64,12 +64,20 @@ void	routine(void *philo)
 
 	if (!(tmp->number % 2))
 		usleep(250);
+		pthread_mutex_lock(&tmp->data->dead_lock);
+
 	tmp->last_meal = timeofday(0);
+		pthread_mutex_unlock(&tmp->data->dead_lock);
+
 	while (1)
 	{
 		fork_lock(tmp);
 		write_lock(tmp, eating);
+		pthread_mutex_lock(&tmp->data->dead_lock);
+	
 		tmp->last_meal = timeofday(0);
+		pthread_mutex_unlock(&tmp->data->dead_lock);
+		
 		ft_usleep(tmp->data->timing.time_to_eat);
 		fork_unlock(tmp);
 		tmp->meals_ate++;
@@ -87,12 +95,9 @@ void	destroy_mutexes(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->are_full != NULL)
-		pthread_mutex_destroy(&data->are_full);
-	if (data->dead_lock)
-		pthread_mutex_destroy(&data->dead_lock);
-	if (data->write)
-		pthread_mutex_destroy(&data->write);
+	pthread_mutex_destroy(&data->are_full);
+	pthread_mutex_destroy(&data->dead_lock);
+	pthread_mutex_destroy(&data->write);
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_destroy(&data->philos[i].l_fork);
