@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:20:42 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/26 05:22:35 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/27 07:48:54 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,23 @@
 # define WHITE "\033[37m"
 
 typedef struct s_interval
-{	
+{
 	int			number_of_times_each_philosopher_must_eat;
-	long long			time_to_sleep;
-	long long			time_to_die;
-	long long		time_to_eat;
-}			  t_intervals;
+	long long	time_to_sleep;
+	long long	time_to_die;
+	long long	time_to_eat;
+}	t_intervals;
 
-typedef struct 	s_philo
+typedef struct s_philo
 {
 	pthread_t		id;
 	int				number;
-
-	long long					last_meal;
-	long long					meals_ate;
-	pthread_mutex_t			l_fork;
-	pthread_mutex_t			*r_fork;
-	struct s_data			*data;
-}				t_philo;
+	long long		last_meal;
+	long long		meals_ate;
+	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
+	struct s_data	*data;
+}	t_philo;
 
 typedef struct s_data
 {
@@ -67,20 +66,21 @@ typedef struct s_data
 	t_intervals		timing;
 }	t_data;
 
+int			is_number(char **argv, int ac, t_data *data);
+int			monitor_threads(t_data *data);
+int			creat_threads(t_data *data);
+int			init_mutexes(t_data *data);
 
-int		is_number(char **argv, int ac, t_data *data);
-int		creat_threads(t_data *data);
+void		write_lock(t_philo *philo, char *msg);
+void		death_msg(t_data *data, int i);
+void		destroy_mutexes(t_data *data);
+void		fork_unlock(t_philo *philo);
+void		meals_lock(t_philo *philo);
+void		ft_usleep(long long time);
+void		fork_lock(t_philo *philo);
+void		full_msg(t_data *data);
+void		ft_perror(char *str);
 
-void	ft_perror(char *str);
-int		init_mutexes(t_data *data);
-void	write_lock(t_philo *philo, char *msg);
-void	fork_lock(t_philo *philo);
-void	fork_unlock(t_philo *philo);
-void	meals_lock(t_philo *philo);
-long long timeofday(long long start);
-void	ft_usleep(long long time);
-void	destroy_mutexes(t_data *data);
-void	full_msg(t_data *data, int i);
-void	death_msg(t_data *data, int i)
+long long	timeofday(long long start);
 
 #endif

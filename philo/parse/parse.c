@@ -6,11 +6,11 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 03:26:39 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/21 03:25:39 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/27 07:50:50 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 void	ft_perror(char *str)
 {
@@ -50,7 +50,7 @@ int	check_chars(char *argv)
 size_t	ft_atoi(char *str)
 {
 	size_t	i;
-	int			sign;
+	int		sign;
 	size_t	res;
 	size_t	temp;
 
@@ -80,19 +80,19 @@ int	is_number(char **argv, int ac, t_data*data)
 
 	if (ac != 5 && ac != 6)
 		return (ft_perror("invalid number of argument !!"), 1);
-	i = 1;
-	while (argv[i])
+	i = 0;
+	while (argv[++i])
 	{
 		if (check_chars(argv[i]))
 			return (1);
-		i++;
 	}
 	data->number_of_philosophers = ft_atoi(argv[1]);
 	data->timing.time_to_die = ft_atoi(argv[2]);
 	data->timing.time_to_eat = ft_atoi(argv[3]);
 	data->timing.time_to_sleep = ft_atoi(argv[4]);
 	if (ac == 6)
-		data->timing.number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		data->timing.number_of_times_each_philosopher_must_eat
+			= ft_atoi(argv[5]);
 	else
 		data->timing.number_of_times_each_philosopher_must_eat = 0;
 	if (data->number_of_philosophers <= 0 || data->number_of_philosophers > 200

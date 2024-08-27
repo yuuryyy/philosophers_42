@@ -6,21 +6,25 @@
 #    By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 22:50:23 by ychagri           #+#    #+#              #
-#    Updated: 2024/08/26 04:57:03 by ychagri          ###   ########.fr        #
+#    Updated: 2024/08/27 03:43:49 by ychagri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	philo
 
-CFLAGS	:=	 cc -g -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS	:=	 cc -g -Wall -Wextra -Werror 
+#-fsanitize=thread
 #-fsanitize=address
+#
 
 
-SRCS	:=	philo.c parse.c init.c manage_mutex.c \
+
+SRCS	:=	philo.c		parse/parse.c	threads/init.c	threads/manage_mutex.c \
+			threads/tools.c \
 
 OBJS	:=	$(SRCS:.c=.o)
 
-HEADER	:=	philo.h
+HEADER	:=	inc/philo.h
 
 all	: $(NAME)
 

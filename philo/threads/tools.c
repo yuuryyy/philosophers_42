@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 05:02:20 by ychagri           #+#    #+#             */
-/*   Updated: 2024/08/26 05:23:27 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/08/27 07:57:31 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	destroy_mutexes(t_data *data)
 	free(data->philos);
 }
 
-long long timeofday(long long start)
+long long	timeofday(long long start)
 {
 	struct timeval	tval;
 
@@ -39,7 +39,7 @@ long long timeofday(long long start)
 
 void	ft_usleep(long long time)
 {
-	long long start;
+	long long	start;
 
 	start = timeofday(0);
 	while (timeofday(start) < time)
@@ -49,22 +49,25 @@ void	ft_usleep(long long time)
 void	death_msg(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->write);
-	printf(MAGENTA"%llu ms %d died", timeofday(data->start_time),
+	printf(MAGENTA"=> %llu ms philo %d died", timeofday(data->start_time),
 		data->philos[i].number);
-	destroy_mutexes(data), 
+	destroy_mutexes(data);
 	exit(0);
 }
 
-void	full_msg(t_data *data, int i)
+void	full_msg(t_data *data)
 {
 	if (data->timing.number_of_times_each_philosopher_must_eat
 		&& (data->full_philos == data->number_of_philosophers))
 	{
-		printf(MAGENTA"%llu ms all the philos have ate at least %d\n",
+		pthread_mutex_lock(&data->write);
+		printf(MAGENTA"=> %llu ms all the philos have ate at least %d times.\n",
 			timeofday(data->start_time),
-			data->full_philos);
+			data->timing.number_of_times_each_philosopher_must_eat);
+		pthread_mutex_unlock(&data->are_full);
 		destroy_mutexes(data);
 		exit(0);
 	}
+	pthread_mutex_unlock(&data->are_full);
 	return ;
 }
