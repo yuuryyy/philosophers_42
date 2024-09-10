@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:23:58 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/08 00:33:59 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/10 23:53:05 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_philo
 	pid_t			id;
 	int				number;
 	long long		last_meal;
-	long long		meals_ate;
+	int				meals_ate;
+	pthread_mutex_t	data_lock;
 	struct s_data	*data;
 }	t_philo;
 
@@ -68,12 +69,17 @@ typedef struct s_data
 	sem_t			*write_sem;
 }	t_data;
 
-int		check_arg(char **argv, int ac, t_data*data);
+int			check_arg(char **argv, int ac, t_data*data);
+int			init_proc(t_data *data);
+int			init_sem(t_data *data);
 
-void	ft_perror(char *str);
-int	init_proc(t_data *data);
+void		print_msg(t_philo *philo, char *msg);
+void		take_forks(t_philo *philo);
+void		ft_usleep(long long time);
+void		put_forks(t_philo *philo);
+void		ft_perror(char *str);
 
-//test remove if not needed
-int	init_sem(t_data *data);
+long long	timeofday(long long start);
+
 
 #endif
