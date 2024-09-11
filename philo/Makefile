@@ -6,7 +6,7 @@
 #    By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 22:50:23 by ychagri           #+#    #+#              #
-#    Updated: 2024/08/27 03:43:49 by ychagri          ###   ########.fr        #
+#    Updated: 2024/09/11 20:49:32 by ychagri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,6 @@ CFLAGS	:=	 cc -g -Wall -Wextra -Werror
 #-fsanitize=thread
 #-fsanitize=address
 #
-
-
-
 SRCS	:=	philo.c		parse/parse.c	threads/init.c	threads/manage_mutex.c \
 			threads/tools.c \
 

@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:23:58 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/10 23:53:05 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/11 20:31:13 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define EATING "is eating"
 # define SLEEPING "is sleeping"
 # define THINKING "is thinking"
+# define DEAD "is dead"
 
 # define RESET "\033[0m"
 # define BLACK "\033[30m"
@@ -52,6 +53,7 @@ typedef struct s_philo
 	long long		last_meal;
 	int				meals_ate;
 	pthread_mutex_t	data_lock;
+	pthread_mutex_t	lsttime_lock;
 	struct s_data	*data;
 }	t_philo;
 
@@ -74,9 +76,14 @@ int			init_proc(t_data *data);
 int			init_sem(t_data *data);
 
 void		print_msg(t_philo *philo, char *msg);
+void		philos_routine(t_philo *philo);
+void		meals_check(t_philo *philo);
+void		dead_action(t_philo *philo);
 void		take_forks(t_philo *philo);
 void		ft_usleep(long long time);
 void		put_forks(t_philo *philo);
+
+void		resting(t_philo *philo);
 void		ft_perror(char *str);
 
 long long	timeofday(long long start);

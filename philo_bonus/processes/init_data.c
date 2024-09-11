@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:42:17 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/11 00:09:00 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/11 23:31:57 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	init_sem(t_data *data)
 {
-	if (sem_unlink("forks") == -1)
-		return (ft_perror("sem_unlink() has failed ."), 1);
-	if (sem_unlink("dead") == -1)
-		return (ft_perror("sem_unlink() has failed ."), 1);
-	if (sem_unlink("print") == -1)
-		return (ft_perror("sem_unlink() has failed ."), 1);
-	if (sem_unlink("full") == -1)
-		return (ft_perror("sem_unlink() has failed ."), 1);
+// 	if (sem_unlink("forks") == -1)
+// 		return (ft_perror("sem_unlink() has failed ."), 1);
+// 	if (sem_unlink("dead") == -1)
+// 		return (ft_perror("sem_unlink() has failed ."), 1);
+// 	if (sem_unlink("print") == -1)
+// 		return (ft_perror("sem_unlink() has failed ."), 1);
+// 	if (sem_unlink("full") == -1)
+// 		return (ft_perror("sem_unlink() has failed ."), 1);
 	data->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, data->philos_nb);
 	if (!data->forks)
 		return (ft_perror("sem_open() has failed ."), 1);
@@ -44,7 +44,7 @@ int	init_proc(t_data *data)
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->philos_nb);
 	while (i < data->meals_nb)
-		sem_wait(data->full_sem);
+		1`
 	sem_wait(data->dead_sem);
 	i = 0;
 	data->start_time = timeofday(0);
@@ -53,13 +53,15 @@ int	init_proc(t_data *data)
 		data->philos[i].number = i + 1;
 		data->philos[i].meals_ate = 0;
 		if (pthread_mutex_init(&data->philos[i].data_lock, NULL) == -1)
-			return ()
+			return (ft_perror("pthread_mutex_init() has failed ."), 1);
+		if (pthread_mutex_init(&data->philos[i].lsttime_lock, NULL) == -1)
+			return (ft_perror("pthread_mutex_init() has failed ."), 1);
 		data->philos[i].id = fork();
 		if (data->philos[i].id == -1)
 			return (ft_perror("fork() has failed ."), 1);
 		else if (data->philos[i].id > 0)
 		{
-			// routine(&data->philos[i]);
+			philos_routine(&data->philos[i]);
 		}
 		else
 			i++;

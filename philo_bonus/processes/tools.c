@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 01:01:46 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/10 20:57:35 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/11 20:30:33 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,16 @@ void	ft_usleep(long long time)
 	start = timeofday(0);
 	while (timeofday(start) < time)
 		usleep(100);
+}
+
+
+
+void	dead_action(t_philo *philo)
+{
+		sem_wait(philo->data->write_sem);
+	printf("=> %lld ms philo %d %s.\n",
+		timeofday(philo->data->start_time), philo->number,DEAD);
+	sem_post(philo->data->dead_sem);
+	pthread_mutex_unlock(&philo->lsttime_lock);
+	exit(0);
 }
