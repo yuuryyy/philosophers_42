@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:11:26 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/11 23:09:09 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/14 04:16:37 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	print_msg(t_philo *philo, char *msg)
 
 void	take_forks(t_philo *philo)
 {
-	fprintf(stderr,"<<%p>>\n",philo->data->forks);
-	sem_wait(philo->data->forks);
+	// printf("%d\n", philo->number);
+
+	fprintf(stderr,"<<%d>>\n",*philo->data->forks);
+	if (sem_wait(philo->data->forks) == -1)
+		return (ft_perror("sem_wait() has failed ."));
 	print_msg(philo, FORK);
 	sem_wait(philo->data->forks);
 	print_msg(philo, FORK);
