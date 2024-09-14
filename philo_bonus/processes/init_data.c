@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:42:17 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/14 04:02:58 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/14 04:22:53 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_sem(t_data *data)
 	// 	return (ft_perror("sem_unlink() has failed ."), 1);
 	// if (sem_unlink("full") == -1)
 	// 	return (ft_perror("sem_unlink() has failed ."), 1);
-	data->forks = sem_open("forks", O_CREAT | O_EXCL, 0600, data->philos_nb);
+	data->forks = sem_open("forks", O_CREAT | O_EXCL, 0700, data->philos_nb);
 	if (!data->forks)
 		return (ft_perror("sem_open() has failed ."), 1);
 	data->dead_sem = sem_open("dead", O_CREAT | O_EXCL, 0600, 1);
