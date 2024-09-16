@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 00:59:46 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/14 04:15:14 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/15 00:35:24 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	philos_routine(t_philo *philo)
 		usleep(philo->data->philos_nb * 20);
 	while (1)
 	{
-		take_forks(philo);
 			// printf("%d\n", philo->number);
+		take_forks(philo);
 		print_msg(philo, EATING);
 		philo->last_meal = timeofday(0);
 		ft_usleep(philo->data->timing.time_to_eat);
