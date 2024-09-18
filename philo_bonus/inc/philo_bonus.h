@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:23:58 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/14 00:04:52 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/18 03:18:06 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <stdbool.h>
+# include <signal.h>
+# include <sys/stat.h>
 
 # define FORK "has taken a fork"
 # define EATING "is eating"
@@ -59,7 +61,6 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				full_philos;
 	int				meals_nb;
 	long long		start_time;
 	int				philos_nb;
@@ -72,16 +73,19 @@ typedef struct s_data
 }	t_data;
 
 int			check_arg(char **argv, int ac, t_data*data);
-int			init_proc(t_data *data);
+int			create_philos(t_data *data);
+int			init_philos(t_data *data);
 int			init_sem(t_data *data);
 
 void		print_msg(t_philo *philo, char *msg);
 void		philos_routine(t_philo *philo);
+void		destroy_n_free(t_data *data);
 void		meals_check(t_philo *philo);
 void		dead_action(t_philo *philo);
 void		take_forks(t_philo *philo);
 void		ft_usleep(long long time);
 void		put_forks(t_philo *philo);
+void		kill_proc(t_data *data);
 
 void		resting(t_philo *philo);
 void		ft_perror(char *str);

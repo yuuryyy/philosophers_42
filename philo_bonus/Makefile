@@ -6,13 +6,14 @@
 #    By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 22:06:51 by ychagri           #+#    #+#              #
-#    Updated: 2024/09/14 23:50:34 by ychagri          ###   ########.fr        #
+#    Updated: 2024/09/18 04:01:47 by ychagri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= philo_bonus
 
-COMPILE	:=  cc -g  -Wall -Wextra -Werror -fsanitize=address
+COMPILE	:=  cc  -Wall -Wextra -Werror -g 
+#-fsanitize=thread
 
 HEADER	:=	inc/philo_bonus.h \
 
