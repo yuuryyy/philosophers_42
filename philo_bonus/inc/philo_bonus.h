@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:23:58 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/18 03:18:06 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/18 21:36:57 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data
 	int				meals_nb;
 	long long		start_time;
 	int				philos_nb;
+	bool			dead_flag;
 	t_philo			*philos;
 	t_intervals		timing;
 	sem_t			*forks;

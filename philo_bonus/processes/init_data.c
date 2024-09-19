@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:42:17 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/18 04:11:48 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 01:25:21 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ void	death_check(t_data *data)
 	{
 		err = sem_wait(data->dead_sem);
 		if (err == 0)
+		{
+			sem_post(data->full_sem);
+			data->dead_flag = true;
 			return ;
+		}
 	}
 }
 
@@ -85,25 +89,24 @@ void	*all_ate(void *arg)
 	t_data	*data;
 	int		ate;
 
+
 	data = (t_data *)arg;
 	ate = 0;
-	while (1)
+	while (data->dead_flag == false)
 	{
 		sem_wait(data->full_sem);
 		ate++;
-		if (ate == data->philos_nb)
+		if (ate == data->philos_nb && data->dead_flag == false)
 		{
 			sem_wait(data->write_sem);
-			printf(MAGENTA"=> %lldms all the philos have ate at least %d times!\n"RESET,
+			printf(MAGENTA"=> %lld ms all the philos have a te at least %d times!\n"RESET,
 				timeofday(data->start_time), data->meals_nb);
 			sem_post(data->dead_sem);
-			// printf(RED"holaaaaaaaaaaaadfqeac"RESET"\n");
 			return (NULL);
 		}
 	}
 	return (arg);
 }
-
 int	create_philos(t_data *data)
 {
 	int		i;
@@ -111,6 +114,7 @@ int	create_philos(t_data *data)
 	pthread_t	satisf;
 
 	i = -1;
+	data->dead_flag = false;
 	data->start_time = timeofday(0);
 	while (++i < data->philos_nb)
 	{
@@ -132,8 +136,6 @@ int	create_philos(t_data *data)
 	}
 	death_check(data);
 	kill_proc(data);
-	printf("here\n");
 	destroy_n_free(data);
-	exit (0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 01:01:46 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/18 02:06:58 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 01:15:03 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	dead_action(t_philo *philo)
 	printf(MAGENTA"=> %lld ms philo %d %s.\n"RESET,
 		timeofday(philo->data->start_time), philo->number,DEAD);
 	sem_post(philo->data->dead_sem);
-	pthread_mutex_unlock(&philo->lsttime_lock);
+	exit(0);
 }
 
 void	kill_proc(t_data *data)

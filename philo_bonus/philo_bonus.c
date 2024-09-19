@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 22:05:46 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/17 22:42:35 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 00:54:32 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ int	main(int ac, char **av)
 		return (1);
 	if (create_philos(&data))
 		return (1);
+	printf(RESET);
+	return (0);
 }
