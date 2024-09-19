@@ -6,13 +6,12 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:23:58 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/18 21:36:57 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 01:57:40 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
-
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -46,7 +45,6 @@ typedef struct s_interval
 	long long	time_to_die;
 	long long	time_to_eat;
 }	t_intervals;
-
 
 typedef struct s_philo
 {
@@ -87,11 +85,9 @@ void		take_forks(t_philo *philo);
 void		ft_usleep(long long time);
 void		put_forks(t_philo *philo);
 void		kill_proc(t_data *data);
-
 void		resting(t_philo *philo);
 void		ft_perror(char *str);
 
 long long	timeofday(long long start);
-
 
 #endif

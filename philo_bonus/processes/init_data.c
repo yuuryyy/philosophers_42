@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:42:17 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/19 01:25:21 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 02:03:03 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,21 @@ int	init_sem(t_data *data)
 	sem_unlink("print");
 	sem_unlink("full");
 	sem_unlink("forks");
-	data->forks = sem_open("forks", O_CREAT | O_EXCL, 0660, data->philos_nb);
+	data->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, data->philos_nb);
 	if (!data->forks)
 		return (ft_perror("sem_open() has failed ."), 1);
-	data->dead_sem = sem_open("dead", O_CREAT | O_EXCL, 0660, 1);
+	data->dead_sem = sem_open("dead", O_CREAT | O_EXCL, 0644, 1);
 	if (!data->dead_sem)
 		return (ft_perror("sem_open() has failed ."), 1);
-	data->write_sem = sem_open("print", O_CREAT | O_EXCL, 0660, 1);
+	data->write_sem = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
 	if (!data->write_sem)
 		return (ft_perror("sem_open() has failed ."), 1);
 	if (data->meals_nb)
 	{
-		data->full_sem = sem_open("full", O_CREAT | O_EXCL, 0644, data->philos_nb);
+		data->full_sem = sem_open("full", O_CREAT | O_EXCL,
+				0644, data->philos_nb);
 		if (!data->full_sem)
-			return (ft_perror("sem_open() has failed ."), 1);	
+			return (ft_perror("sem_open() has failed ."), 1);
 	}
 	return (0);
 }
@@ -67,10 +68,8 @@ int	init_philos(t_data *data)
 
 void	death_check(t_data *data)
 {
-	int	i;
 	int	err;
 
-	i = 0;
 	err = -1;
 	while (1)
 	{
@@ -89,7 +88,6 @@ void	*all_ate(void *arg)
 	t_data	*data;
 	int		ate;
 
-
 	data = (t_data *)arg;
 	ate = 0;
 	while (data->dead_flag == false)
@@ -99,7 +97,8 @@ void	*all_ate(void *arg)
 		if (ate == data->philos_nb && data->dead_flag == false)
 		{
 			sem_wait(data->write_sem);
-			printf(MAGENTA"=> %lld ms all the philos have a te at least %d times!\n"RESET,
+			printf(MAGENTA
+				"=> %lld ms all the philos have a te at least %d times!\n",
 				timeofday(data->start_time), data->meals_nb);
 			sem_post(data->dead_sem);
 			return (NULL);
@@ -107,14 +106,14 @@ void	*all_ate(void *arg)
 	}
 	return (arg);
 }
+
 int	create_philos(t_data *data)
 {
-	int		i;
-	pid_t	pid;
+	int			i;
+	pid_t		pid;
 	pthread_t	satisf;
 
 	i = -1;
-	data->dead_flag = false;
 	data->start_time = timeofday(0);
 	while (++i < data->philos_nb)
 	{
@@ -124,10 +123,7 @@ int	create_philos(t_data *data)
 		else if (pid > 0)
 			data->philos[i].id = pid;
 		else if (pid == 0)
-		{
 			philos_routine(&data->philos[i]);
-			exit(0);
-		}
 	}
 	if (data->meals_nb)
 	{

@@ -6,7 +6,7 @@
 /*   By: ychagri <ychagri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:11:26 by ychagri           #+#    #+#             */
-/*   Updated: 2024/09/19 01:35:52 by ychagri          ###   ########.fr       */
+/*   Updated: 2024/09/19 02:04:23 by ychagri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 void	print_msg(t_philo *philo, char *msg)
 {
 	sem_wait(philo->data->write_sem);
-	printf("=> %lld ms philo %d %s.\n", timeofday(philo->data->start_time), philo->number, msg);
+	printf("=> %lld ms philo %d %s.\n",
+		timeofday(philo->data->start_time), philo->number, msg);
 	sem_post(philo->data->write_sem);
 }
 
 void	take_forks(t_philo *philo)
 {
-	// if (sem_wait(philo->data->forks) == -1)
-	// 	return (ft_perror("sem_wait() has failed ."));
-	// print_msg(philo, FORK);
-	// sem_wait(philo->data->forks);
-	// print_msg(philo, FORK);
-
 	if (sem_wait(philo->data->forks) == -1)
 		return (ft_perror("sem_wait() has failed ."));
 	print_msg(philo, FORK);
-	if (sem_wait(philo->data->forks) == -1) // Check for second fork
+	if (sem_wait(philo->data->forks) == -1)
 	{
-		sem_post(philo->data->forks); // Release the first fork
+		sem_post(philo->data->forks);
 		return (ft_perror("sem_wait() has failed for second fork."));
 	}
 	print_msg(philo, FORK);
